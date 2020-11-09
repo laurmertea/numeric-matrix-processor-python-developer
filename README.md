@@ -6,3 +6,6 @@ Here’s a project for devoted matrix enthusiasts: learn to perform a variety of
 
 # Learning outcomes
 Apart from learning a whole lot about matrices, you will become familiar with the Math library, recursion, and the many ways of using nested lists in practice.
+
+# Stage 1/6: Addition
+Use nested lists to add matrices.
