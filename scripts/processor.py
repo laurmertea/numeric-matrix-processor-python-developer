@@ -2,7 +2,8 @@ import sys
 
 
 # MENU SETUP
-menu_options = ['1. Add matrices', '2. Multiply matrix by a constant', '3. Multiply matrices', '0. Exit']
+menu_options = ['1. Add matrices', '2. Multiply matrix by a constant', '3. Multiply matrices', '4. Transpose matrix', '0. Exit']
+transpose_menu_options = ['1. Main diagonal', '2. Side diagonal', '3. Vertical diagonal', '4. Horizontal diagonal']
 selected_option = None
 
 
@@ -28,6 +29,31 @@ def exit_proc(message=""):
     sys.exit(message)
 
 
+def transpose_processor_menu(selected_transpose):
+    """Try and access selected option in the transpose actions processor menu (see the `transpose_menu_options` list).
+
+    Arguments:
+        selected -- a valid integer matching an option from transpose_menu_options list
+    """
+    while selected_transpose not in range(1, 5):
+        print(unsupported_option)
+        selected_transpose = int(input('\n'.join(transpose_menu_options) + '\n' + 'Your choice: '))
+    
+    x, y = map(int,input(matrix_size_input).split())
+    print(matrix_input)
+    mat_A = Matrix(x, y)
+    print(result_output)
+
+    if selected_transpose == 1:
+        mat_transpose(mat_A).repr("table", as_integers=True)
+    elif selected_transpose == 2:
+        mat_side_transpose(mat_A).repr("table", as_integers=True)
+    elif selected_transpose == 3:
+        mat_vertical_transpose(mat_A).repr("table", as_integers=True)
+    elif selected_transpose == 4:
+        mat_horizontal_transpose(mat_A).repr("table", as_integers=True)
+    
+
 def processor_menu(selected):
     """Try and access selected option in the processor menu (see the `menu_options` list).
 
@@ -36,6 +62,9 @@ def processor_menu(selected):
     """
     if selected_option == 0:
         exit_proc()
+    elif selected_option == 4:
+        selected_transpose_option = int(input('\n'.join(transpose_menu_options) + '\n' + 'Your choice: '))     
+        transpose_processor_menu(selected_transpose_option)
     else:
         if selected_option == 1:
             x, y = map(int,input(first_matrix_size_input).split())
@@ -108,18 +137,23 @@ class Matrix:
             self.rows.append(list(map(float,input().split())))
             index = index + 1
 
-    def repr(self, repr_type=None):
+    def repr(self, repr_type=None, as_integers=None):
         """Print a representation of the matrix.
         
         Keyword arguments:
-            repr_type -- The matrix representation type; 
-                         if None is passed then the matrix will be printed as an array of arrays
+            repr_type   -- The matrix representation type; 
+                           if None is passed then the matrix will be printed as an array of arrays
+            as_integers -- If None is passed the matrix values will be printed as they are;
+                           if True, they will be printed as integers
         """
         if not repr_type:
             print(self.rows)
         else:
             for i in range(0, self.row_dim):
-                print(' '.join([str(x) for x in self.rows[i]]))
+                if not as_integers:
+                    print(' '.join([str(x) for x in self.rows[i]]))
+                else:
+                    print(' '.join([str(int(x)) for x in self.rows[i]]))
 
 
 def mat_addition(mat_a, mat_b):
@@ -163,7 +197,7 @@ def mat_multiply_constant(mat, const):
 
 
 def mat_transpose(mat):
-    """Transpose a matrix.
+    """Transpose a matrix by its main diagonal.
 
     Arguments:
         mat -- The matrix
@@ -176,6 +210,60 @@ def mat_transpose(mat):
         cols = []
         for i in range(0, mat.row_dim):
             cols.append(mat.rows[i][j])
+        rows.append(cols)
+    return Matrix(mat.col_dim, mat.row_dim, rows)
+
+
+def mat_side_transpose(mat):
+    """Transpose a matrix by its side diagonal.
+
+    Arguments:
+        mat -- The matrix
+
+    Returns:
+        A matrix
+    """
+    rows = []
+    for j in range(mat.col_dim - 1, -1, -1):
+        cols = []
+        for i in range(mat.row_dim - 1, -1, -1):
+            cols.append(mat.rows[i][j])
+        rows.append(cols)
+    return Matrix(mat.col_dim, mat.row_dim, rows)
+
+
+def mat_vertical_transpose(mat):
+    """Transpose a matrix by its vertical line.
+
+    Arguments:
+        mat -- The matrix
+
+    Returns:
+        A matrix
+    """
+    rows = []
+    for j in range(0, mat.col_dim):
+        cols = []
+        for i in range(mat.row_dim - 1, -1, -1):
+            cols.append(mat.rows[j][i])
+        rows.append(cols)
+    return Matrix(mat.col_dim, mat.row_dim, rows)
+
+
+def mat_horizontal_transpose(mat):
+    """Transpose a matrix by its horizontal line.
+
+    Arguments:
+        mat -- The matrix
+
+    Returns:
+        A matrix
+    """
+    rows = []
+    for j in range(mat.col_dim - 1, -1, -1):
+        cols = []
+        for i in range(0, mat.row_dim):
+            cols.append(mat.rows[j][i])
         rows.append(cols)
     return Matrix(mat.col_dim, mat.row_dim, rows)
 
@@ -206,7 +294,7 @@ def mat_multiply(mat_a, mat_b):
     return Matrix(mat_a.row_dim, mat_b.col_dim, rows)
 
 
-while selected_option not in range(0, 3):
+while selected_option not in range(0, 4):
     while selected_option != 0:
         selected_option = int(input('\n'.join(menu_options) + '\n' + 'Your choice: '))
         processor_menu(selected_option)
