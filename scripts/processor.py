@@ -2,7 +2,7 @@ import sys
 
 
 # MENU SETUP
-menu_options = ['1. Add matrices', '2. Multiply matrix by a constant', '3. Multiply matrices', '4. Transpose matrix', '0. Exit']
+menu_options = ['1. Add matrices', '2. Multiply matrix by a constant', '3. Multiply matrices', '4. Transpose matrix', '5. Calculate a determinant', '0. Exit']
 transpose_menu_options = ['1. Main diagonal', '2. Side diagonal', '3. Vertical diagonal', '4. Horizontal diagonal']
 selected_option = None
 
@@ -104,7 +104,12 @@ def processor_menu(selected):
                 print(result_output)
                 mat_C.repr("table")
             else:
-                print(impossible_operation)   
+                print(impossible_operation) 
+        elif selected_option == 5:
+            x, y = map(int,input(matrix_size_input).split())
+            print(matrix_input)
+            mat = Matrix(x, y)
+            print(mat_det(mat, 0))
         else:
             print(unsupported_option)
 
@@ -292,6 +297,40 @@ def mat_multiply(mat_a, mat_b):
             cols.append(result)
         rows.append(cols)
     return Matrix(mat_a.row_dim, mat_b.col_dim, rows)
+
+
+def mat_det(mat, det=0):
+    """Calculate the determinant of a matrix.
+
+    Arguments:
+        mat -- The matrix
+        det -- The current determinant value, 0 if none was passed
+
+    Returns:
+        None, if the matrix dimension is 0,
+        an integer, if the matrix is square, or an error message if not
+    """
+    if mat.row_dim == 0:
+        return None
+    elif mat.row_dim != mat.col_dim:
+        return impossible_operation
+    elif mat.row_dim == 1:
+        return mat.rows[0][0]
+    elif mat.row_dim == 2:
+        return mat.rows[0][0] * mat.rows[1][1] - mat.rows[0][1] * mat.rows[1][0]
+    else:
+        for k in range(0, mat.row_dim):
+            rows = []
+            for i in range(1, mat.row_dim):
+                cols = []
+                for j in range(0, mat.col_dim):
+                    if j != k:
+                        cols.append(mat.rows[i][j])
+                rows.append(cols)
+            sign = pow(-1, k)
+            sub_det = mat_det(Matrix(mat.row_dim - 1, mat.col_dim - 1, rows))
+            det += sign * mat.rows[0][k] * sub_det
+    return det
 
 
 while selected_option not in range(0, 4):
