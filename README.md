@@ -262,3 +262,62 @@ The result is:
 4. Transpose matrix
 0. Exit
 Your choice: > 0
+
+
+# Stage 5/6: Determined!
+Use recursion to enable your program to find the determinant.
+
+## Description
+In this stage, you should write a program that calculates a determinant of a matrix. You can check out some videos about linear algebra to understand the essence of the determinant and why it is important. To see how to calculate the determinant of any square matrix, watch a video about minors and cofactors and computing the nxn determinant. Also, here's nice graphic explanation on minors and cofactors.
+
+A determinant is a single number that can be computed from the elements of a square matrix. There is a classical way to find the determinant of a matrix with an order <3<3.
+
+A determinant of a 2-order matrix is equal to the difference between the product of elements on the main diagonal and the product of elements on the side diagonal.
+
+We often need to find the determinant of a matrix of the order greater than 22. In this case, we have to use expansion by rows or columns where the determinant is equal to a sum of a single row or a single column multiplied by the cofactors of the elements in the corresponding row or column. To do this, you should use a recursive method.
+
+## Objectives
+In this stage, your program should support calculating the determinant of a matrix. Refer to the example to see how it should be implemented.
+
+## Example
+The greater-than symbol followed by a space (> ) represents the user input. Note that it's not part of the input.
+
+1. Add matrices
+2. Multiply matrix by a constant
+3. Multiply matrices
+4. Transpose matrix
+5. Calculate a determinant
+0. Exit
+Your choice: > 5
+Enter matrix size: > 3 3
+Enter matrix:
+> 1 7 7
+> 6 6 4
+> 4 2 1
+The result is:
+-16
+
+1. Add matrices
+2. Multiply matrix by a constant
+3. Multiply matrices
+4. Transpose matrix
+5. Calculate a determinant
+0. Exit
+Your choice: > 5
+Enter matrix size: > 5 5
+Enter matrix:
+> 1 2 3 4 5
+> 4 5 6 4 3
+> 0 0 0 1 5
+> 1 3 9 8 7
+> 5 8 4 7 11
+The result is:
+191
+
+1. Add matrices
+2. Multiply matrix by a constant
+3. Multiply matrices
+4. Transpose matrix
+5. Calculate a determinant
+0. Exit
+Your choice: > 0
