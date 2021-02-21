@@ -112,13 +112,15 @@ def processor_menu(selected):
             mat = Matrix(x, y)
             print(mat_det(mat, 0))
         elif selected_option == 6:
-            print("""
-                The user will input a matrix size here and the respective matrix 
-                and this will compute the matrix determinant; 
-                if the determinant is different than 0 this will find the cofactors matrix.
-                Finally it'll calculate the inverse with the following formula:
-                    A^-1 = (1 / det(A)) * C^T
-            """)
+            x, y = map(int,input(matrix_size_input).split())
+            print(matrix_input)
+            mat = Matrix(x, y)
+            det = mat_det(mat, 0)
+            if det == 0:
+                print(no_inverse_output)
+            else:
+                print("TODO: This will compute the matrix inverse")
+
         else:
             print(unsupported_option)
 
