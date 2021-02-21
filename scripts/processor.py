@@ -17,6 +17,7 @@ first_matrix_input = "Enter first matrix:"
 second_matrix_input = "Enter second matrix:"
 constant_input = "Enter constant: "
 result_output = "The result is:"
+no_inverse_output = "This matrix doesn't have an inverse."
 unsupported_option = "Not supported!"
 
 
