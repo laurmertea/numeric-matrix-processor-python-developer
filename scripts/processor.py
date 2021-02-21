@@ -2,7 +2,7 @@ import sys
 
 
 # MENU SETUP
-menu_options = ['1. Add matrices', '2. Multiply matrix by a constant', '3. Multiply matrices', '4. Transpose matrix', '5. Calculate a determinant', '0. Exit']
+menu_options = ['1. Add matrices', '2. Multiply matrix by a constant', '3. Multiply matrices', '4. Transpose matrix', '5. Calculate a determinant', '6. Inverse matrix', '0. Exit']
 transpose_menu_options = ['1. Main diagonal', '2. Side diagonal', '3. Vertical diagonal', '4. Horizontal diagonal']
 selected_option = None
 
@@ -110,6 +110,14 @@ def processor_menu(selected):
             print(matrix_input)
             mat = Matrix(x, y)
             print(mat_det(mat, 0))
+        elif selected_option == 6:
+            print("""
+                The user will input a matrix size here and the respective matrix 
+                and this will compute the matrix determinant; 
+                if the determinant is different than 0 this will find the cofactors matrix.
+                Finally it'll calculate the inverse with the following formula:
+                    A^-1 = (1 / det(A)) * C^T
+            """)
         else:
             print(unsupported_option)
 
