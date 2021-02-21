@@ -17,6 +17,7 @@ first_matrix_input = "Enter first matrix:"
 second_matrix_input = "Enter second matrix:"
 constant_input = "Enter constant: "
 result_output = "The result is:"
+non_square_matrix_output = "This matrix needs to be square for the selected operation to be performed."
 no_inverse_output = "This matrix doesn't have an inverse."
 unsupported_option = "Not supported!"
 
@@ -113,13 +114,16 @@ def processor_menu(selected):
             print(mat_det(mat, 0))
         elif selected_option == 6:
             x, y = map(int,input(matrix_size_input).split())
-            print(matrix_input)
-            mat = Matrix(x, y)
-            det = mat_det(mat, 0)
-            if det == 0:
-                print(no_inverse_output)
+            if x != y:
+                print(non_square_matrix_output)
             else:
-                print("TODO: This will compute the matrix inverse")
+                print(matrix_input)
+                mat = Matrix(x, y)
+                det = mat_det(mat, 0)
+                if det == 0:
+                    print(no_inverse_output)
+                else:
+                    print("TODO: This will compute the matrix inverse")
 
         else:
             print(unsupported_option)
